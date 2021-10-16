@@ -42,7 +42,8 @@
     "lint:style": "stylelint 'src/**/*.{css,less,sass,scss}'",
     "lint:style:fix": "stylelint --fix 'src/**/*.{css,less,sass,scss}'",
     "preinstall": "typesync || :",
-    "prepare": "simple-git-hooks > /dev/null"
+    "prepare": "simple-git-hooks > /dev/null",
+    "start:server": "ts-node mock/index"
   },
   "eslintConfig": {
     "extends": [
