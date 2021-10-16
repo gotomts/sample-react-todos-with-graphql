@@ -44,6 +44,7 @@ const typeDefs = gql`
 const resolvers = {
   Query: {
     allTodos: () => {
+      console.log('allTodos', todos);
       if (filter === 'ALL') return todos;
 
       return todos.filter((todo) =>
@@ -53,12 +54,14 @@ const resolvers = {
   },
   Mutation: {
     addTodo: (_, args: { text: string }) => {
+      console.log('addTodo', args.text);
       const todo: Todo = { id: uuidv4(), text: args.text, completed: false };
       todos.push(todo);
 
       return todo;
     },
     toggleCompleted: (_, args: { id: string }) => {
+      console.log('toggleCompleted', args.id);
       const todo = todos.find((t) => t.id === args.id);
       if (!todo) {
         throw new UserInputError('id not found', {
@@ -72,6 +75,7 @@ const resolvers = {
       return todo;
     },
     setFilter: (_, args: { filter: FILTER }) => {
+      console.log('setFilter', args.filter);
       filter = args.filter;
 
       return filter;
