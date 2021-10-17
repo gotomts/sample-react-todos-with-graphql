@@ -1,13 +1,16 @@
+import { AddTodoMutationFn } from 'generated/graphql';
 import { SyntheticEvent, useState, VFC } from 'react';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const Form: VFC<{ addTodo: any }> = ({ addTodo }) => {
+type FormProps = {
+  addTodo: AddTodoMutationFn;
+};
+
+const Form: VFC<FormProps> = ({ addTodo }) => {
   const [text, setText] = useState('');
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
     if (!text.trim()) return;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-    addTodo({
+    void addTodo({
       variables: { text },
     });
     setText('');

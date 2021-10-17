@@ -1,18 +1,11 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-// import { VFC } from 'react';
-// import { TODO_FILTER } from '../types/Todo';
+import { SetFilterMutationFn } from 'generated/graphql';
+import { VFC } from 'react';
 
-// type Variables = {
-//   filter: TODO_FILTER;
-// };
+type DisplayBtnProps = {
+  setFilter: SetFilterMutationFn;
+};
 
-// type DisplayBtnProps = {
-//   setFilter: (Variables) => ;
-// };
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
-const DisplayBtn = ({ setFilter }: { setFilter: any }) => (
+const DisplayBtn: VFC<DisplayBtnProps> = ({ setFilter }) => (
   <>
     <button
       className="px-2 border rounded"
