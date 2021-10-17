@@ -1,18 +1,22 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { FC } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
-import { ADD_TODOS, ALL_TODOS, SET_FILTER } from 'graphql/query';
 import List from 'components/List';
 import Form from 'components/Form';
 import DisplayBtn from 'components/DisplayBtn';
+import {
+  AllTodosDocument,
+  AddTodoDocument,
+  SetFilterDocument,
+} from 'generated/graphql';
 
 const App: FC = () => {
-  const { loading, data } = useQuery(ALL_TODOS);
-  const [addTodo] = useMutation(ADD_TODOS, {
-    refetchQueries: [{ query: ALL_TODOS }],
+  const { loading, data } = useQuery(AllTodosDocument);
+  const [addTodo] = useMutation(AddTodoDocument, {
+    refetchQueries: [{ query: AllTodosDocument }],
   });
-  const [setFilter] = useMutation(SET_FILTER, {
-    refetchQueries: [{ query: ALL_TODOS }],
+  const [setFilter] = useMutation(SetFilterDocument, {
+    refetchQueries: [{ query: AllTodosDocument }],
   });
 
   return (
