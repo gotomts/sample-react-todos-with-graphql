@@ -35,13 +35,11 @@ const SET_FILTER = gql`
 const App: FC = () => {
   const { loading, data } = useQuery(ALL_TODOS);
   const [addTodo] = useMutation(ADD_TODOS, {
-    refetchQueries: [{ query: ADD_TODOS }],
+    refetchQueries: [{ query: ALL_TODOS }],
   });
   const [setFilter] = useMutation(SET_FILTER, {
-    refetchQueries: [{ query: SET_FILTER }],
+    refetchQueries: [{ query: ALL_TODOS }],
   });
-
-  console.log('App', addTodo);
 
   return (
     <>

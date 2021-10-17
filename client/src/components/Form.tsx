@@ -2,7 +2,6 @@ import { SyntheticEvent, useState, VFC } from 'react';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Form: VFC<{ addTodo: any }> = ({ addTodo }) => {
-  console.log('Form', addTodo);
   const [text, setText] = useState('');
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
