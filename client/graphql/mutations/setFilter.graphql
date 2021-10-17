@@ -1,0 +1,3 @@
+mutation setFilter($filter: Filter!) {
+  setFilter(filter: $filter)
+}
