@@ -118,4 +118,5 @@ module.exports = {
       typescript: { project: './' },
     },
   },
+  ignorePatterns: ['src/generated/graphql.ts'],
 };
