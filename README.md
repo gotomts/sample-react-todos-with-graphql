@@ -1,4 +1,3 @@
-# react-template
+# sample-react-todos-with-graphql
 
-React プロジェクトを新しく作るときのテンプレートリポジトリ
-
+React + GraphQLでTodoリストのサンプルアプリ開発
