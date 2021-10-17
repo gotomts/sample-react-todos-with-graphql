@@ -11,11 +11,19 @@ import (
 	"github.com/gotomts/sample-react-todos-with-graphql/server/graph/model"
 )
 
-func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) (*model.Todo, error) {
+func (r *mutationResolver) AddTodo(ctx context.Context, text string) (*model.Todo, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
-func (r *queryResolver) Todos(ctx context.Context) ([]*model.Todo, error) {
+func (r *mutationResolver) SetFilter(ctx context.Context, filter *model.Filter) (model.Filter, error) {
+	panic(fmt.Errorf("not implemented"))
+}
+
+func (r *mutationResolver) ToggleCompleted(ctx context.Context, id string) (*model.Todo, error) {
+	panic(fmt.Errorf("not implemented"))
+}
+
+func (r *queryResolver) AllTodos(ctx context.Context) ([]*model.Todo, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 

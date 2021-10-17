@@ -2,19 +2,57 @@
 
 package model
 
-type NewTodo struct {
-	Text   string `json:"text"`
-	UserID string `json:"userId"`
-}
+import (
+	"fmt"
+	"io"
+	"strconv"
+)
 
 type Todo struct {
-	ID   string `json:"id"`
-	Text string `json:"text"`
-	Done bool   `json:"done"`
-	User *User  `json:"user"`
+	ID        string `json:"id"`
+	Text      string `json:"text"`
+	Completed bool   `json:"completed"`
 }
 
-type User struct {
-	ID   string `json:"id"`
-	Name string `json:"name"`
+type Filter string
+
+const (
+	FilterAll       Filter = "ALL"
+	FilterCompleted Filter = "COMPLETED"
+	FilterActive    Filter = "ACTIVE"
+)
+
+var AllFilter = []Filter{
+	FilterAll,
+	FilterCompleted,
+	FilterActive,
+}
+
+func (e Filter) IsValid() bool {
+	switch e {
+	case FilterAll, FilterCompleted, FilterActive:
+		return true
+	}
+	return false
+}
+
+func (e Filter) String() string {
+	return string(e)
+}
+
+func (e *Filter) UnmarshalGQL(v interface{}) error {
+	str, ok := v.(string)
+	if !ok {
+		return fmt.Errorf("enums must be strings")
+	}
+
+	*e = Filter(str)
+	if !e.IsValid() {
+		return fmt.Errorf("%s is not a valid Filter", str)
+	}
+	return nil
+}
+
+func (e Filter) MarshalGQL(w io.Writer) {
+	fmt.Fprint(w, strconv.Quote(e.String()))
 }
