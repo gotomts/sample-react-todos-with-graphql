@@ -11,6 +11,7 @@ type Query {
 type Mutation {
   addTodo(text: String!): Todo!
   setFilter(filter: Filter): Filter!
+  toggleCompleted(id: ID!): Todo!
 }
 
 type Todo {

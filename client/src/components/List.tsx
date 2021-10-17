@@ -1,16 +1,10 @@
-import { useApolloClient, gql } from '@apollo/client';
+import { useApolloClient } from '@apollo/client';
 import { VFC } from 'react';
-import { AllTodosQuery, AllTodosDocument } from 'generated/graphql';
-
-const TOGGLE_COMPLETED = gql`
-  mutation toggleCompleted($id: ID!) {
-    toggleCompleted(id: $id) {
-      id
-      text
-      completed
-    }
-  }
-`;
+import {
+  AllTodosQuery,
+  AllTodosDocument,
+  ToggleCompletedDocument,
+} from 'generated/graphql';
 
 type ListProps = {
   loading: boolean;
@@ -26,7 +20,7 @@ const List: VFC<ListProps> = ({ loading, data }) => {
 
   const toggleCompleted = (id: string) => {
     void client.mutate({
-      mutation: TOGGLE_COMPLETED,
+      mutation: ToggleCompletedDocument,
       variables: { id },
       refetchQueries: [{ query: AllTodosDocument }],
     });

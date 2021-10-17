@@ -1,7 +1,5 @@
-/* eslint-disable prefer-arrow/prefer-arrow-functions */
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
-
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = {
   [K in keyof T]: T[K];
@@ -28,6 +26,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   addTodo: Todo;
   setFilter: Filter;
+  toggleCompleted: Todo;
 };
 
 export type MutationAddTodoArgs = {
@@ -36,6 +35,10 @@ export type MutationAddTodoArgs = {
 
 export type MutationSetFilterArgs = {
   filter?: Maybe<Filter>;
+};
+
+export type MutationToggleCompletedArgs = {
+  id: Scalars['ID'];
 };
 
 export type Query = {
@@ -69,6 +72,20 @@ export type SetFilterMutationVariables = Exact<{
 }>;
 
 export type SetFilterMutation = { __typename?: 'Mutation'; setFilter: Filter };
+
+export type ToggleCompletedMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+export type ToggleCompletedMutation = {
+  __typename?: 'Mutation';
+  toggleCompleted: {
+    __typename?: 'Todo';
+    id: string;
+    text: string;
+    completed: boolean;
+  };
+};
 
 export type AllTodosQueryVariables = Exact<{ [key: string]: never }>;
 
@@ -182,6 +199,59 @@ export type SetFilterMutationResult = Apollo.MutationResult<SetFilterMutation>;
 export type SetFilterMutationOptions = Apollo.BaseMutationOptions<
   SetFilterMutation,
   SetFilterMutationVariables
+>;
+export const ToggleCompletedDocument = gql`
+  mutation toggleCompleted($id: ID!) {
+    toggleCompleted(id: $id) {
+      id
+      text
+      completed
+    }
+  }
+`;
+export type ToggleCompletedMutationFn = Apollo.MutationFunction<
+  ToggleCompletedMutation,
+  ToggleCompletedMutationVariables
+>;
+
+/**
+ * __useToggleCompletedMutation__
+ *
+ * To run a mutation, you first call `useToggleCompletedMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useToggleCompletedMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [toggleCompletedMutation, { data, loading, error }] = useToggleCompletedMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useToggleCompletedMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    ToggleCompletedMutation,
+    ToggleCompletedMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+
+  return Apollo.useMutation<
+    ToggleCompletedMutation,
+    ToggleCompletedMutationVariables
+  >(ToggleCompletedDocument, options);
+}
+export type ToggleCompletedMutationHookResult = ReturnType<
+  typeof useToggleCompletedMutation
+>;
+export type ToggleCompletedMutationResult =
+  Apollo.MutationResult<ToggleCompletedMutation>;
+export type ToggleCompletedMutationOptions = Apollo.BaseMutationOptions<
+  ToggleCompletedMutation,
+  ToggleCompletedMutationVariables
 >;
 export const AllTodosDocument = gql`
   query allTodos {
