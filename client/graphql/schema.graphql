@@ -1,0 +1,20 @@
+enum Filter {
+  ALL
+  COMPLETED
+  ACTIVE
+}
+
+type Query {
+  todos: [Todo!]
+}
+
+type Mutation {
+  addTodo(text: String!): Todo!
+  setFilter(filter: Filter): Filter!
+}
+
+type Todo {
+  id: ID!
+  text: String!
+  completed: Boolean!
+}
