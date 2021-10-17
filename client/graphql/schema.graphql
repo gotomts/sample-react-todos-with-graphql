@@ -5,7 +5,7 @@ enum Filter {
 }
 
 type Query {
-  todos: [Todo!]
+  allTodos: [Todo!]
 }
 
 type Mutation {
