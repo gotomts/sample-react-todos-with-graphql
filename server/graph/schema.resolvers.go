@@ -6,13 +6,20 @@ package graph
 import (
 	"context"
 	"fmt"
+	"math/rand"
 
 	"github.com/gotomts/sample-react-todos-with-graphql/server/graph/generated"
 	"github.com/gotomts/sample-react-todos-with-graphql/server/graph/model"
 )
 
 func (r *mutationResolver) AddTodo(ctx context.Context, text string) (*model.Todo, error) {
-	panic(fmt.Errorf("not implemented"))
+	todo := &model.Todo{
+		ID:     fmt.Sprintf("T%d", rand.Int()),
+		Text:   text,
+		Completed: false,
+	}
+	r.todos = append(r.todos, todo)
+	return todo, nil
 }
 
 func (r *mutationResolver) SetFilter(ctx context.Context, filter *model.Filter) (model.Filter, error) {
@@ -24,7 +31,7 @@ func (r *mutationResolver) ToggleCompleted(ctx context.Context, id string) (*mod
 }
 
 func (r *queryResolver) AllTodos(ctx context.Context) ([]*model.Todo, error) {
-	panic(fmt.Errorf("not implemented"))
+	return r.todos, nil
 }
 
 // Mutation returns generated.MutationResolver implementation.
