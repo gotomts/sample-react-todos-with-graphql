@@ -1,36 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable import/no-cycle */
 import { FC } from 'react';
-import { gql, useMutation, useQuery } from '@apollo/client';
-import DisplayBtn from './components/DisplayBtn';
-import List from './components/List';
-import Form from './components/Form';
-
-export const ALL_TODOS = gql`
-  query {
-    allTodos {
-      id
-      text
-      completed
-    }
-  }
-`;
-
-const ADD_TODOS = gql`
-  mutation addTodo($text: String!) {
-    addTodo(text: $text) {
-      id
-      text
-      completed
-    }
-  }
-`;
-
-const SET_FILTER = gql`
-  mutation setFilter($filter: FILTER!) {
-    setFilter(filter: $filter)
-  }
-`;
+import { useMutation, useQuery } from '@apollo/client';
+import { ADD_TODOS, ALL_TODOS, SET_FILTER } from 'graphql/query';
+import List from 'components/List';
+import Form from 'components/Form';
+import DisplayBtn from 'components/DisplayBtn';
 
 const App: FC = () => {
   const { loading, data } = useQuery(ALL_TODOS);

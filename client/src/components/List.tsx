@@ -1,8 +1,7 @@
 import { useApolloClient, gql } from '@apollo/client';
 import { VFC } from 'react';
-import { Todo } from '../types/Todo';
-// eslint-disable-next-line import/no-cycle
-import { ALL_TODOS } from '../App';
+import { ALL_TODOS } from 'graphql/query';
+import { Todo } from 'types/Todo';
 
 const TOGGLE_COMPLETED = gql`
   mutation toggleCompleted($id: ID!) {
