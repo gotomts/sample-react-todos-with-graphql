@@ -1,9 +1,8 @@
-/* eslint-disable no-shadow */
 /* eslint-disable no-console */
 import { ApolloServer, gql, UserInputError } from 'apollo-server';
 import { v4 as uuidv4 } from 'uuid';
 
-enum FILTER {
+enum Filter {
   ALL = 'ALL',
   COMPLETED = 'COMPLETED',
   ACTIVE = 'ACTIVE',
@@ -18,7 +17,7 @@ const todos: Todo[] = [
   { id: '8rjijr9j9-9', text: 'shopping', completed: false },
 ];
 const typeDefs = gql`
-  enum FILTER {
+  enum Filter {
     ALL
     COMPLETED
     ACTIVE
@@ -37,7 +36,7 @@ const typeDefs = gql`
   type Mutation {
     addTodo(text: String!): Todo!
     toggleCompleted(id: ID!): Todo!
-    setFilter(filter: FILTER!): FILTER!
+    setFilter(filter: Filter!): Filter!
   }
 `;
 
@@ -74,7 +73,7 @@ const resolvers = {
 
       return todo;
     },
-    setFilter: (_, args: { filter: FILTER }) => {
+    setFilter: (_, args: { filter: Filter }) => {
       console.log('setFilter', args.filter);
       filter = args.filter;
 
