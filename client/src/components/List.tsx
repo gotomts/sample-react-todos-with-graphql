@@ -1,7 +1,7 @@
 import { useApolloClient, gql } from '@apollo/client';
 import { VFC } from 'react';
 import { ALL_TODOS } from 'graphql/query';
-import { Todo } from 'types/Todo';
+import { AllTodosQuery } from 'generated/graphql';
 
 const TOGGLE_COMPLETED = gql`
   mutation toggleCompleted($id: ID!) {
@@ -14,11 +14,11 @@ const TOGGLE_COMPLETED = gql`
 `;
 
 type ListProps = {
-  data?: { allTodos: Todo[] };
   loading: boolean;
+  data?: AllTodosQuery;
 };
 
-const List: VFC<ListProps> = ({ data, loading }) => {
+const List: VFC<ListProps> = ({ loading, data }) => {
   const client = useApolloClient();
 
   if (loading) {
@@ -35,22 +35,21 @@ const List: VFC<ListProps> = ({ data, loading }) => {
 
   return (
     <ul>
-      {data &&
-        data.allTodos.map(({ id, text, completed }) => (
-          <li
-            key={id}
-            style={{ textDecoration: completed ? 'line-through' : 'none' }}
+      {data?.allTodos?.map(({ id, text, completed }) => (
+        <li
+          key={id}
+          style={{ textDecoration: completed ? 'line-through' : 'none' }}
+        >
+          {text}
+          <button
+            type="button"
+            className="px-2 ml-4 border border-gray-400 rounded"
+            onClick={() => toggleCompleted(id)}
           >
-            {text}
-            <button
-              type="button"
-              className="px-2 ml-4 border border-gray-400 rounded"
-              onClick={() => toggleCompleted(id)}
-            >
-              DONE
-            </button>
-          </li>
-        ))}
+            DONE
+          </button>
+        </li>
+      ))}
     </ul>
   );
 };
