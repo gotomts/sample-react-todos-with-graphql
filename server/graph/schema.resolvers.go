@@ -27,7 +27,14 @@ func (r *mutationResolver) SetFilter(ctx context.Context, filter *model.Filter) 
 }
 
 func (r *mutationResolver) ToggleCompleted(ctx context.Context, id string) (*model.Todo, error) {
-	panic(fmt.Errorf("not implemented"))
+	var todo *model.Todo
+	for _, t := range r.todos {
+		if t.ID == id {
+			t.Completed = !t.Completed
+			todo = t
+		}
+	}
+	return todo, nil
 }
 
 func (r *queryResolver) AllTodos(ctx context.Context) ([]*model.Todo, error) {
