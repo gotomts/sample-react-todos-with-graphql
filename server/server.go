@@ -11,7 +11,7 @@ import (
 	"github.com/gotomts/sample-react-todos-with-graphql/server/graph/generated"
 )
 
-const defaultPort = "8080"
+const defaultPort = "4000"
 
 func main() {
 	port := os.Getenv("PORT")
