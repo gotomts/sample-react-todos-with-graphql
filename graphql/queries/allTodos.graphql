@@ -1,0 +1,7 @@
+query allTodos($filter: Filter!) {
+  allTodos(filter: $filter) {
+    id
+    text
+    completed
+  }
+}

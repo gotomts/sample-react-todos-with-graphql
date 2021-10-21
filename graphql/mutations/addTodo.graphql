@@ -1,5 +1,5 @@
-query allTodos {
-  allTodos {
+mutation addTodo {
+  addTodo {
     id
     text
     completed
