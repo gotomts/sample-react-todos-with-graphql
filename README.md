@@ -3,11 +3,11 @@
 React + GraphQLでTodoリストのサンプルアプリ開発
 
 ## ディレクトリ構成
-- client
+- client  
 Reactで構築したフロントエンドのソースコード
-- graphql
+- graphql  
 GraphQLのスキーマ定義
-- server
+- server  
 Go言語で構築したGraphQLサーバー(gqlgen使用)
-- server_ts
+- server_ts  
 TypeScriptで構築したGraphQLサーバー(ApolloServer使用)
