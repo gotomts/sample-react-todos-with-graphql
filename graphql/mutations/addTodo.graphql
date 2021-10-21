@@ -1,5 +1,5 @@
-mutation addTodo($text: String!) {
-  addTodo(text: $text) {
+mutation addTodo {
+  addTodo {
     id
     text
     completed
