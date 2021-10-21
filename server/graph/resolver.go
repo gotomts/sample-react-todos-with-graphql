@@ -8,4 +8,5 @@ import "github.com/gotomts/sample-react-todos-with-graphql/server/graph/model"
 
 type Resolver struct{
 	todos []*model.Todo
+	filter *model.Filter
 }

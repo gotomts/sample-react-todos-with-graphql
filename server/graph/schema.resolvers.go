@@ -23,7 +23,8 @@ func (r *mutationResolver) AddTodo(ctx context.Context, text string) (*model.Tod
 }
 
 func (r *mutationResolver) SetFilter(ctx context.Context, filter *model.Filter) (model.Filter, error) {
-	panic(fmt.Errorf("not implemented"))
+	r.filter = filter
+	return *r.filter, nil
 }
 
 func (r *mutationResolver) ToggleCompleted(ctx context.Context, id string) (*model.Todo, error) {
