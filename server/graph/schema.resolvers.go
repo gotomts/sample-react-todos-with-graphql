@@ -39,7 +39,30 @@ func (r *mutationResolver) ToggleCompleted(ctx context.Context, id string) (*mod
 }
 
 func (r *queryResolver) AllTodos(ctx context.Context) ([]*model.Todo, error) {
-	return r.todos, nil
+	if r.filter == nil {
+		return r.todos, nil
+	} else {
+		switch r.filter.String() {
+		case model.FilterActive.String():
+			var todos []*model.Todo
+			for _, todo := range r.todos {
+				if !todo.Completed {
+					todos = append(todos, todo)
+				}
+			}
+			return todos, nil
+		case model.FilterCompleted.String():
+			var todos []*model.Todo
+			for _, todo := range r.todos {
+				if todo.Completed {
+					todos = append(todos, todo)
+				}
+			}
+			return todos, nil
+		default:
+			return r.todos, nil
+		}
+	}
 }
 
 // Mutation returns generated.MutationResolver implementation.
