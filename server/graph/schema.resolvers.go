@@ -1,6 +1,7 @@
 package graph
 
-//go:generate go run github.com/99designs/gqlgen
+// This file will be automatically regenerated based on the schema, any resolver implementations
+// will be copied through when generating and any unknown code will be moved to the end.
 
 import (
 	"context"
@@ -13,8 +14,8 @@ import (
 
 func (r *mutationResolver) AddTodo(ctx context.Context, text string) (*model.Todo, error) {
 	todo := &model.Todo{
-		ID:     fmt.Sprintf("T%d", rand.Int()),
-		Text:   text,
+		ID:        fmt.Sprintf("T%d", rand.Int()),
+		Text:      text,
 		Completed: false,
 	}
 	r.todos = append(r.todos, todo)
