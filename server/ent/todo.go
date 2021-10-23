@@ -7,14 +7,19 @@ import (
 	"strings"
 
 	"entgo.io/ent/dialect/sql"
+	"github.com/google/uuid"
 	"github.com/gotomts/sample-react-todos-with-graphql/server/ent/todo"
 )
 
 // Todo is the model entity for the Todo schema.
 type Todo struct {
-	config
+	config `json:"-"`
 	// ID of the ent.
-	ID int `json:"id,omitempty"`
+	ID uuid.UUID `json:"id,omitempty"`
+	// Text holds the value of the "text" field.
+	Text string `json:"text,omitempty"`
+	// Completed holds the value of the "completed" field.
+	Completed bool `json:"completed,omitempty"`
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -22,8 +27,12 @@ func (*Todo) scanValues(columns []string) ([]interface{}, error) {
 	values := make([]interface{}, len(columns))
 	for i := range columns {
 		switch columns[i] {
+		case todo.FieldCompleted:
+			values[i] = new(sql.NullBool)
+		case todo.FieldText:
+			values[i] = new(sql.NullString)
 		case todo.FieldID:
-			values[i] = new(sql.NullInt64)
+			values[i] = new(uuid.UUID)
 		default:
 			return nil, fmt.Errorf("unexpected column %q for type Todo", columns[i])
 		}
@@ -40,11 +49,23 @@ func (t *Todo) assignValues(columns []string, values []interface{}) error {
 	for i := range columns {
 		switch columns[i] {
 		case todo.FieldID:
-			value, ok := values[i].(*sql.NullInt64)
-			if !ok {
-				return fmt.Errorf("unexpected type %T for field id", value)
+			if value, ok := values[i].(*uuid.UUID); !ok {
+				return fmt.Errorf("unexpected type %T for field id", values[i])
+			} else if value != nil {
+				t.ID = *value
 			}
-			t.ID = int(value.Int64)
+		case todo.FieldText:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field text", values[i])
+			} else if value.Valid {
+				t.Text = value.String
+			}
+		case todo.FieldCompleted:
+			if value, ok := values[i].(*sql.NullBool); !ok {
+				return fmt.Errorf("unexpected type %T for field completed", values[i])
+			} else if value.Valid {
+				t.Completed = value.Bool
+			}
 		}
 	}
 	return nil
@@ -73,6 +94,10 @@ func (t *Todo) String() string {
 	var builder strings.Builder
 	builder.WriteString("Todo(")
 	builder.WriteString(fmt.Sprintf("id=%v", t.ID))
+	builder.WriteString(", text=")
+	builder.WriteString(t.Text)
+	builder.WriteString(", completed=")
+	builder.WriteString(fmt.Sprintf("%v", t.Completed))
 	builder.WriteByte(')')
 	return builder.String()
 }

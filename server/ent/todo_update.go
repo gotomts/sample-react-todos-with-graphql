@@ -26,6 +26,40 @@ func (tu *TodoUpdate) Where(ps ...predicate.Todo) *TodoUpdate {
 	return tu
 }
 
+// SetText sets the "text" field.
+func (tu *TodoUpdate) SetText(s string) *TodoUpdate {
+	tu.mutation.SetText(s)
+	return tu
+}
+
+// SetNillableText sets the "text" field if the given value is not nil.
+func (tu *TodoUpdate) SetNillableText(s *string) *TodoUpdate {
+	if s != nil {
+		tu.SetText(*s)
+	}
+	return tu
+}
+
+// ClearText clears the value of the "text" field.
+func (tu *TodoUpdate) ClearText() *TodoUpdate {
+	tu.mutation.ClearText()
+	return tu
+}
+
+// SetCompleted sets the "completed" field.
+func (tu *TodoUpdate) SetCompleted(b bool) *TodoUpdate {
+	tu.mutation.SetCompleted(b)
+	return tu
+}
+
+// SetNillableCompleted sets the "completed" field if the given value is not nil.
+func (tu *TodoUpdate) SetNillableCompleted(b *bool) *TodoUpdate {
+	if b != nil {
+		tu.SetCompleted(*b)
+	}
+	return tu
+}
+
 // Mutation returns the TodoMutation object of the builder.
 func (tu *TodoUpdate) Mutation() *TodoMutation {
 	return tu.mutation
@@ -91,7 +125,7 @@ func (tu *TodoUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Table:   todo.Table,
 			Columns: todo.Columns,
 			ID: &sqlgraph.FieldSpec{
-				Type:   field.TypeInt,
+				Type:   field.TypeUUID,
 				Column: todo.FieldID,
 			},
 		},
@@ -102,6 +136,26 @@ func (tu *TodoUpdate) sqlSave(ctx context.Context) (n int, err error) {
 				ps[i](selector)
 			}
 		}
+	}
+	if value, ok := tu.mutation.Text(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: todo.FieldText,
+		})
+	}
+	if tu.mutation.TextCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Column: todo.FieldText,
+		})
+	}
+	if value, ok := tu.mutation.Completed(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeBool,
+			Value:  value,
+			Column: todo.FieldCompleted,
+		})
 	}
 	if n, err = sqlgraph.UpdateNodes(ctx, tu.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
@@ -120,6 +174,40 @@ type TodoUpdateOne struct {
 	fields   []string
 	hooks    []Hook
 	mutation *TodoMutation
+}
+
+// SetText sets the "text" field.
+func (tuo *TodoUpdateOne) SetText(s string) *TodoUpdateOne {
+	tuo.mutation.SetText(s)
+	return tuo
+}
+
+// SetNillableText sets the "text" field if the given value is not nil.
+func (tuo *TodoUpdateOne) SetNillableText(s *string) *TodoUpdateOne {
+	if s != nil {
+		tuo.SetText(*s)
+	}
+	return tuo
+}
+
+// ClearText clears the value of the "text" field.
+func (tuo *TodoUpdateOne) ClearText() *TodoUpdateOne {
+	tuo.mutation.ClearText()
+	return tuo
+}
+
+// SetCompleted sets the "completed" field.
+func (tuo *TodoUpdateOne) SetCompleted(b bool) *TodoUpdateOne {
+	tuo.mutation.SetCompleted(b)
+	return tuo
+}
+
+// SetNillableCompleted sets the "completed" field if the given value is not nil.
+func (tuo *TodoUpdateOne) SetNillableCompleted(b *bool) *TodoUpdateOne {
+	if b != nil {
+		tuo.SetCompleted(*b)
+	}
+	return tuo
 }
 
 // Mutation returns the TodoMutation object of the builder.
@@ -194,7 +282,7 @@ func (tuo *TodoUpdateOne) sqlSave(ctx context.Context) (_node *Todo, err error) 
 			Table:   todo.Table,
 			Columns: todo.Columns,
 			ID: &sqlgraph.FieldSpec{
-				Type:   field.TypeInt,
+				Type:   field.TypeUUID,
 				Column: todo.FieldID,
 			},
 		},
@@ -222,6 +310,26 @@ func (tuo *TodoUpdateOne) sqlSave(ctx context.Context) (_node *Todo, err error) 
 				ps[i](selector)
 			}
 		}
+	}
+	if value, ok := tuo.mutation.Text(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: todo.FieldText,
+		})
+	}
+	if tuo.mutation.TextCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Column: todo.FieldText,
+		})
+	}
+	if value, ok := tuo.mutation.Completed(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeBool,
+			Value:  value,
+			Column: todo.FieldCompleted,
+		})
 	}
 	_node = &Todo{config: tuo.config}
 	_spec.Assign = _node.assignValues
