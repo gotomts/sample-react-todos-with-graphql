@@ -17,8 +17,12 @@ func (r *mutationResolver) SetFilter(ctx context.Context, filter *Filter) (Filte
 	panic(fmt.Errorf("not implemented"))
 }
 
-func (r *mutationResolver) ToggleCompleted(ctx context.Context, id string) (*ent.Todo, error) {
-	panic(fmt.Errorf("not implemented"))
+func (r *mutationResolver) ToggleCompleted(ctx context.Context, id int) (*ent.Todo, error) {
+	todo, err := r.client.Todo.Get(ctx, id)
+	if err != nil {
+		panic(fmt.Errorf("failed get todo id:%v", id))
+	}
+	return r.client.Todo.UpdateOneID(id).SetCompleted(!todo.Completed).Save(ctx)
 }
 
 func (r *queryResolver) AllTodos(ctx context.Context) ([]*ent.Todo, error) {
