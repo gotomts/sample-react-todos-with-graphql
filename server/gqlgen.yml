@@ -5,15 +5,14 @@ resolver:
   dir: .
 autobind:
   - todo/ent
+  - todo/ent/todo
 models:
   ID:
     model:
-      - github.com/99designs/gqlgen/graphql.ID
-      - github.com/99designs/gqlgen/graphql.Int
-      - github.com/99designs/gqlgen/graphql.Int64
-      - github.com/99designs/gqlgen/graphql.Int32
-  Int:
+      - github.com/99designs/gqlgen/graphql.IntID
+  Uint64:
     model:
-      - github.com/99designs/gqlgen/graphql.Int
-      - github.com/99designs/gqlgen/graphql.Int64
-      - github.com/99designs/gqlgen/graphql.Int32
+      - github.com/99designs/gqlgen/graphql.Uint64
+  Node:
+    model:
+      - todo/ent.Noder
