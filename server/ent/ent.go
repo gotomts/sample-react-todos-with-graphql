@@ -5,10 +5,10 @@ package ent
 import (
 	"errors"
 	"fmt"
+	"todo/ent/todo"
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
-	"todo/ent/todo"
 )
 
 // ent aliases to avoid import conflicts in user's code.

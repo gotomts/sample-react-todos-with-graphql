@@ -3,9 +3,10 @@
 package ent
 
 import (
-	"github.com/google/uuid"
 	"todo/ent/schema"
 	"todo/ent/todo"
+
+	"github.com/google/uuid"
 )
 
 // The init function reads all schema descriptors with runtime code

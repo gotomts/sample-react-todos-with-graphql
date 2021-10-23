@@ -6,10 +6,10 @@ import (
 	"context"
 	"fmt"
 	"sync"
-
-	"github.com/google/uuid"
 	"todo/ent/predicate"
 	"todo/ent/todo"
+
+	"github.com/google/uuid"
 
 	"entgo.io/ent"
 )

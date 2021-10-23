@@ -7,13 +7,13 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/google/uuid"
 	"todo/ent/migrate"
 
 	"todo/ent/todo"
 
 	"entgo.io/ent/dialect"
 	"entgo.io/ent/dialect/sql"
+	"github.com/google/uuid"
 )
 
 // Client is the client that holds all ent builders.

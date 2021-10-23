@@ -5,12 +5,12 @@ package ent
 import (
 	"context"
 	"fmt"
+	"todo/ent/predicate"
+	"todo/ent/todo"
 
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"todo/ent/predicate"
-	"todo/ent/todo"
 )
 
 // TodoUpdate is the builder for updating Todo entities.

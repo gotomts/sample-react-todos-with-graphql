@@ -7,13 +7,13 @@ import (
 	"errors"
 	"fmt"
 	"math"
+	"todo/ent/predicate"
+	"todo/ent/todo"
 
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
 	"github.com/google/uuid"
-	"todo/ent/predicate"
-	"todo/ent/todo"
 )
 
 // TodoQuery is the builder for querying Todo entities.

@@ -4,7 +4,6 @@ package enttest
 
 import (
 	"context"
-
 	"todo/ent"
 	// required by schema hooks.
 	_ "todo/ent/runtime"

@@ -5,10 +5,10 @@ package ent
 import (
 	"fmt"
 	"strings"
+	"todo/ent/todo"
 
 	"entgo.io/ent/dialect/sql"
 	"github.com/google/uuid"
-	"todo/ent/todo"
 )
 
 // Todo is the model entity for the Todo schema.
