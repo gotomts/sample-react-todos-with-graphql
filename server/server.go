@@ -24,7 +24,7 @@ func main() {
 	connStr := "user=root password=password host=localhost dbname=react_todos sslmode=disable"
 	client, err := ent.Open("postgres", connStr)
 	if err != nil {
-		log.Fatalf("failed opening connection to sqlite: %v", err)
+		log.Fatalf("failed opening connection to postgresql: %v", err)
 	}
 	defer client.Close()
 	// オートマイグレーションツールを実行する
