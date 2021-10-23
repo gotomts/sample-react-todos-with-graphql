@@ -5,7 +5,7 @@ enum Filter {
 }
 
 type Todo {
-  id: ID!
+  id: Int!
   text: String!
   completed: Boolean!
 }
@@ -17,5 +17,5 @@ type Query {
 type Mutation {
   addTodo(text: String!): Todo!
   setFilter(filter: Filter): Filter!
-  toggleCompleted(id: ID!): Todo!
+  toggleCompleted(id: Int!): Todo!
 }
