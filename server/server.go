@@ -14,12 +14,15 @@ import (
 	"github.com/gotomts/sample-react-todos-with-graphql/server/graph"
 	"github.com/gotomts/sample-react-todos-with-graphql/server/graph/generated"
 	"github.com/rs/cors"
+
+	_ "github.com/lib/pq"
 )
 
 const defaultPort = "8080"
 
 func main() {
-	client, err := ent.Open("sqlite3", "file:ent?mode=memory&cache=shared&_fk=1")
+	connStr := "user=root password=password host=localhost dbname=react_todos sslmode=disable"
+	client, err := ent.Open("postgres", connStr)
 	if err != nil {
 		log.Fatalf("failed opening connection to sqlite: %v", err)
 	}
