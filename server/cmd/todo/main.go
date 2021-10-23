@@ -5,9 +5,9 @@ import (
 	"log"
 	"net/http"
 
+	"todo"
 	"todo/ent"
-	"todo/graph"
-	"todo/graph/generated"
+	"todo/ent/migrate"
 
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/handler/transport"
@@ -29,7 +29,10 @@ func main() {
 	}
 	defer client.Close()
 	// オートマイグレーションツールを実行する
-	if err := client.Schema.Create(context.Background()); err != nil {
+	if err := client.Schema.Create(
+		context.Background(),
+		migrate.WithGlobalUniqueID(true),
+	); err != nil {
 		log.Fatalf("failed creating schema resources: %v", err)
 	}
 
@@ -42,7 +45,7 @@ func main() {
 		Debug:            true,
 	}).Handler)
 
-	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: &graph.Resolver{}}))
+	srv := handler.NewDefaultServer(todo.NewSchema(client))
 	srv.AddTransport(&transport.Websocket{
 		Upgrader: websocket.Upgrader{
 			CheckOrigin: func(r *http.Request) bool {

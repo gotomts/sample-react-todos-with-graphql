@@ -1,6 +1,6 @@
 .PHONY: run
 run:
-	go run server.go
+	go run ./cmd/todo
 
 test:
 	go test -cover -coverprofile cover.out
