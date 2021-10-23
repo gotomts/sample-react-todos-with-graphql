@@ -6,7 +6,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/gotomts/sample-react-todos-with-graphql/server/ent"
+	"todo/ent"
 )
 
 // The TodoFunc type is an adapter to allow the use of ordinary

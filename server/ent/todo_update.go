@@ -9,8 +9,8 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"github.com/gotomts/sample-react-todos-with-graphql/server/ent/predicate"
-	"github.com/gotomts/sample-react-todos-with-graphql/server/ent/todo"
+	"todo/ent/predicate"
+	"todo/ent/todo"
 )
 
 // TodoUpdate is the builder for updating Todo entities.

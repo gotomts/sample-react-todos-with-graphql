@@ -5,9 +5,9 @@ package enttest
 import (
 	"context"
 
-	"github.com/gotomts/sample-react-todos-with-graphql/server/ent"
+	"todo/ent"
 	// required by schema hooks.
-	_ "github.com/gotomts/sample-react-todos-with-graphql/server/ent/runtime"
+	_ "todo/ent/runtime"
 
 	"entgo.io/ent/dialect/sql/schema"
 )

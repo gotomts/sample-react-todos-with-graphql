@@ -8,8 +8,8 @@ import (
 	"fmt"
 	"math/rand"
 
-	"github.com/gotomts/sample-react-todos-with-graphql/server/graph/generated"
-	"github.com/gotomts/sample-react-todos-with-graphql/server/graph/model"
+	"todo/graph/generated"
+	"todo/graph/model"
 )
 
 func (r *mutationResolver) AddTodo(ctx context.Context, text string) (*model.Todo, error) {

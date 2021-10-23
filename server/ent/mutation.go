@@ -8,8 +8,8 @@ import (
 	"sync"
 
 	"github.com/google/uuid"
-	"github.com/gotomts/sample-react-todos-with-graphql/server/ent/predicate"
-	"github.com/gotomts/sample-react-todos-with-graphql/server/ent/todo"
+	"todo/ent/predicate"
+	"todo/ent/todo"
 
 	"entgo.io/ent"
 )

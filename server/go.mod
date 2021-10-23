@@ -1,4 +1,4 @@
-module github.com/gotomts/sample-react-todos-with-graphql/server
+module todo
 
 go 1.17
 

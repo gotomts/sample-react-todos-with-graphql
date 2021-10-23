@@ -11,9 +11,9 @@ import (
 
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/99designs/gqlgen/graphql/introspection"
-	"github.com/gotomts/sample-react-todos-with-graphql/server/graph/model"
 	gqlparser "github.com/vektah/gqlparser/v2"
 	"github.com/vektah/gqlparser/v2/ast"
+	"todo/graph/model"
 )
 
 // region    ************************** generated!.gotpl **************************

@@ -10,7 +10,7 @@ import (
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
 	"github.com/google/uuid"
-	"github.com/gotomts/sample-react-todos-with-graphql/server/ent/todo"
+	"todo/ent/todo"
 )
 
 // TodoCreate is the builder for creating a Todo entity.

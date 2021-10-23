@@ -8,7 +8,7 @@ import (
 
 	"entgo.io/ent/dialect/sql"
 	"github.com/google/uuid"
-	"github.com/gotomts/sample-react-todos-with-graphql/server/ent/todo"
+	"todo/ent/todo"
 )
 
 // Todo is the model entity for the Todo schema.

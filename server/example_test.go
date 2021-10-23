@@ -5,8 +5,9 @@ import (
 	"fmt"
 	"log"
 
+	"todo/ent"
+
 	"entgo.io/ent/dialect"
-	"github.com/gotomts/sample-react-todos-with-graphql/server/ent"
 	_ "github.com/lib/pq"
 )
 

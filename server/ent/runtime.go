@@ -4,8 +4,8 @@ package ent
 
 import (
 	"github.com/google/uuid"
-	"github.com/gotomts/sample-react-todos-with-graphql/server/ent/schema"
-	"github.com/gotomts/sample-react-todos-with-graphql/server/ent/todo"
+	"todo/ent/schema"
+	"todo/ent/todo"
 )
 
 // The init function reads all schema descriptors with runtime code

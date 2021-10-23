@@ -2,7 +2,7 @@
 
 package runtime
 
-// The schema-stitching logic is generated in github.com/gotomts/sample-react-todos-with-graphql/server/ent/runtime.go
+// The schema-stitching logic is generated in todo/ent/runtime.go
 
 const (
 	Version = "v0.9.1"                                          // Version of ent codegen.

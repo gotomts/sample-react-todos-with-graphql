@@ -8,9 +8,9 @@ import (
 	"log"
 
 	"github.com/google/uuid"
-	"github.com/gotomts/sample-react-todos-with-graphql/server/ent/migrate"
+	"todo/ent/migrate"
 
-	"github.com/gotomts/sample-react-todos-with-graphql/server/ent/todo"
+	"todo/ent/todo"
 
 	"entgo.io/ent/dialect"
 	"entgo.io/ent/dialect/sql"

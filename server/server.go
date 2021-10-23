@@ -5,14 +5,15 @@ import (
 	"log"
 	"net/http"
 
+	"todo/ent"
+	"todo/graph"
+	"todo/graph/generated"
+
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/handler/transport"
 	"github.com/99designs/gqlgen/graphql/playground"
 	"github.com/go-chi/chi"
 	"github.com/gorilla/websocket"
-	"github.com/gotomts/sample-react-todos-with-graphql/server/ent"
-	"github.com/gotomts/sample-react-todos-with-graphql/server/graph"
-	"github.com/gotomts/sample-react-todos-with-graphql/server/graph/generated"
 	"github.com/rs/cors"
 
 	_ "github.com/lib/pq"

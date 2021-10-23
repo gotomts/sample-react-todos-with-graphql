@@ -5,7 +5,7 @@ package todo
 import (
 	"entgo.io/ent/dialect/sql"
 	"github.com/google/uuid"
-	"github.com/gotomts/sample-react-todos-with-graphql/server/ent/predicate"
+	"todo/ent/predicate"
 )
 
 // ID filters vertices based on their ID field.
