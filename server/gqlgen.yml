@@ -11,7 +11,7 @@ resolver:
   dir: graph
   package: graph
 autobind:
-  - "github.com/gotomts/sample-react-todos-with-graphql/server/graph/model"
+  - todo/ent
 models:
   ID:
     model:
