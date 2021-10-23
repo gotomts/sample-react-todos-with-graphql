@@ -9,8 +9,6 @@ import (
 	"todo/ent/predicate"
 	"todo/ent/todo"
 
-	"github.com/google/uuid"
-
 	"entgo.io/ent"
 )
 
@@ -31,7 +29,7 @@ type TodoMutation struct {
 	config
 	op            Op
 	typ           string
-	id            *uuid.UUID
+	id            *int
 	text          *string
 	completed     *bool
 	clearedFields map[string]struct{}
@@ -60,7 +58,7 @@ func newTodoMutation(c config, op Op, opts ...todoOption) *TodoMutation {
 }
 
 // withTodoID sets the ID field of the mutation.
-func withTodoID(id uuid.UUID) todoOption {
+func withTodoID(id int) todoOption {
 	return func(m *TodoMutation) {
 		var (
 			err   error
@@ -110,15 +108,9 @@ func (m TodoMutation) Tx() (*Tx, error) {
 	return tx, nil
 }
 
-// SetID sets the value of the id field. Note that this
-// operation is only accepted on creation of Todo entities.
-func (m *TodoMutation) SetID(id uuid.UUID) {
-	m.id = &id
-}
-
 // ID returns the ID value in the mutation. Note that the ID is only available
 // if it was provided to the builder or after it was returned from the database.
-func (m *TodoMutation) ID() (id uuid.UUID, exists bool) {
+func (m *TodoMutation) ID() (id int, exists bool) {
 	if m.id == nil {
 		return
 	}

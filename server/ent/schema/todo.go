@@ -1,7 +1,6 @@
 package schema
 
 import (
-	"fmt"
 	"math/rand"
 	"time"
 
@@ -18,7 +17,6 @@ type Todo struct {
 func (Todo) Fields() []ent.Field {
 	rand.Seed(time.Now().UnixNano())
 	return []ent.Field{
-		field.String("id").Default(fmt.Sprintf("T%d", rand.Int())),
 		field.String("text").Optional(),
 		field.Bool("completed").Default(false),
 	}

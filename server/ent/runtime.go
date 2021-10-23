@@ -5,8 +5,6 @@ package ent
 import (
 	"todo/ent/schema"
 	"todo/ent/todo"
-
-	"github.com/google/uuid"
 )
 
 // The init function reads all schema descriptors with runtime code
@@ -16,11 +14,7 @@ func init() {
 	todoFields := schema.Todo{}.Fields()
 	_ = todoFields
 	// todoDescCompleted is the schema descriptor for completed field.
-	todoDescCompleted := todoFields[2].Descriptor()
+	todoDescCompleted := todoFields[1].Descriptor()
 	// todo.DefaultCompleted holds the default value on creation for the completed field.
 	todo.DefaultCompleted = todoDescCompleted.Default.(bool)
-	// todoDescID is the schema descriptor for id field.
-	todoDescID := todoFields[0].Descriptor()
-	// todo.DefaultID holds the default value on creation for the id field.
-	todo.DefaultID = todoDescID.Default.(func() uuid.UUID)
 }

@@ -8,7 +8,6 @@ import (
 	"errors"
 	"strconv"
 	"sync"
-	"sync/atomic"
 	"todo/ent"
 
 	"github.com/99designs/gqlgen/graphql"
@@ -37,7 +36,6 @@ type Config struct {
 type ResolverRoot interface {
 	Mutation() MutationResolver
 	Query() QueryResolver
-	Todo() TodoResolver
 }
 
 type DirectiveRoot struct {
@@ -68,9 +66,6 @@ type MutationResolver interface {
 }
 type QueryResolver interface {
 	AllTodos(ctx context.Context) ([]*ent.Todo, error)
-}
-type TodoResolver interface {
-	ID(ctx context.Context, obj *ent.Todo) (string, error)
 }
 
 type executableSchema struct {
@@ -222,6 +217,12 @@ var sources = []*ast.Source{
   ACTIVE
 }
 
+type Todo {
+  id: ID!
+  text: String!
+  completed: Boolean!
+}
+
 type Query {
   allTodos: [Todo!]
 }
@@ -230,12 +231,6 @@ type Mutation {
   addTodo(text: String!): Todo!
   setFilter(filter: Filter): Filter!
   toggleCompleted(id: ID!): Todo!
-}
-
-type Todo {
-  id: ID!
-  text: String!
-  completed: Boolean!
 }
 `, BuiltIn: false},
 }
@@ -583,14 +578,14 @@ func (ec *executionContext) _Todo_id(ctx context.Context, field graphql.Collecte
 		Object:     "Todo",
 		Field:      field,
 		Args:       nil,
-		IsMethod:   true,
-		IsResolver: true,
+		IsMethod:   false,
+		IsResolver: false,
 	}
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Todo().ID(rctx, obj)
+		return obj.ID, nil
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -602,9 +597,9 @@ func (ec *executionContext) _Todo_id(ctx context.Context, field graphql.Collecte
 		}
 		return graphql.Null
 	}
-	res := resTmp.(string)
+	res := resTmp.(int)
 	fc.Result = res
-	return ec.marshalNID2string(ctx, field.Selections, res)
+	return ec.marshalNID2int(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Todo_text(ctx context.Context, field graphql.CollectedField, obj *ent.Todo) (ret graphql.Marshaler) {
@@ -1901,28 +1896,19 @@ func (ec *executionContext) _Todo(ctx context.Context, sel ast.SelectionSet, obj
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("Todo")
 		case "id":
-			field := field
-			out.Concurrently(i, func() (res graphql.Marshaler) {
-				defer func() {
-					if r := recover(); r != nil {
-						ec.Error(ctx, ec.Recover(ctx, r))
-					}
-				}()
-				res = ec._Todo_id(ctx, field, obj)
-				if res == graphql.Null {
-					atomic.AddUint32(&invalids, 1)
-				}
-				return res
-			})
+			out.Values[i] = ec._Todo_id(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
 		case "text":
 			out.Values[i] = ec._Todo_text(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
-				atomic.AddUint32(&invalids, 1)
+				invalids++
 			}
 		case "completed":
 			out.Values[i] = ec._Todo_completed(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
-				atomic.AddUint32(&invalids, 1)
+				invalids++
 			}
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
@@ -2208,6 +2194,21 @@ func (ec *executionContext) unmarshalNFilter2todoᚐFilter(ctx context.Context, 
 
 func (ec *executionContext) marshalNFilter2todoᚐFilter(ctx context.Context, sel ast.SelectionSet, v Filter) graphql.Marshaler {
 	return v
+}
+
+func (ec *executionContext) unmarshalNID2int(ctx context.Context, v interface{}) (int, error) {
+	res, err := graphql.UnmarshalInt(v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) marshalNID2int(ctx context.Context, sel ast.SelectionSet, v int) graphql.Marshaler {
+	res := graphql.MarshalInt(v)
+	if res == graphql.Null {
+		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
+			ec.Errorf(ctx, "must not be null")
+		}
+	}
+	return res
 }
 
 func (ec *executionContext) unmarshalNID2string(ctx context.Context, v interface{}) (string, error) {

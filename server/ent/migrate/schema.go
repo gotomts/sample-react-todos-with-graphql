@@ -10,7 +10,7 @@ import (
 var (
 	// TodosColumns holds the columns for the "todos" table.
 	TodosColumns = []*schema.Column{
-		{Name: "id", Type: field.TypeUUID},
+		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "text", Type: field.TypeString, Nullable: true},
 		{Name: "completed", Type: field.TypeBool, Default: false},
 	}

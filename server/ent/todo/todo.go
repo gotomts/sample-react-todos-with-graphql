@@ -2,10 +2,6 @@
 
 package todo
 
-import (
-	"github.com/google/uuid"
-)
-
 const (
 	// Label holds the string label denoting the todo type in the database.
 	Label = "todo"
@@ -39,6 +35,4 @@ func ValidColumn(column string) bool {
 var (
 	// DefaultCompleted holds the default value on creation for the "completed" field.
 	DefaultCompleted bool
-	// DefaultID holds the default value on creation for the "id" field.
-	DefaultID func() uuid.UUID
 )
