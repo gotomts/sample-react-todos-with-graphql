@@ -1,26 +1,18 @@
 schema:
   - ../graphql/schema.graphql
-exec:
-  filename: graph/generated/generated.go
-  package: generated
-model:
-  filename: graph/model/models_gen.go
-  package: model
 resolver:
   layout: follow-schema
-  dir: graph
-  package: graph
+  dir: .
 autobind:
-  - "github.com/gotomts/sample-react-todos-with-graphql/server/graph/model"
+  - todo/ent
+  - todo/ent/todo
 models:
   ID:
     model:
-      - github.com/99designs/gqlgen/graphql.ID
-      - github.com/99designs/gqlgen/graphql.Int
-      - github.com/99designs/gqlgen/graphql.Int64
-      - github.com/99designs/gqlgen/graphql.Int32
-  Int:
+      - github.com/99designs/gqlgen/graphql.IntID
+  Uint64:
     model:
-      - github.com/99designs/gqlgen/graphql.Int
-      - github.com/99designs/gqlgen/graphql.Int64
-      - github.com/99designs/gqlgen/graphql.Int32
+      - github.com/99designs/gqlgen/graphql.Uint64
+  Node:
+    model:
+      - todo/ent.Noder

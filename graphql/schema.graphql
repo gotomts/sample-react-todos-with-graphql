@@ -1,21 +1,27 @@
+interface Node {
+  id: ID!
+}
+
 enum Filter {
   ALL
   COMPLETED
   ACTIVE
 }
 
+type Todo implements Node {
+  id: ID!
+  text: String!
+  completed: Boolean!
+}
+
 type Query {
   allTodos: [Todo!]
+  node(id: ID!): Node
+  nodes(ids: [ID!]!): [Node]!
 }
 
 type Mutation {
   addTodo(text: String!): Todo!
   setFilter(filter: Filter): Filter!
   toggleCompleted(id: ID!): Todo!
-}
-
-type Todo {
-  id: ID!
-  text: String!
-  completed: Boolean!
 }

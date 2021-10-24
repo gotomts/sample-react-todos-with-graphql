@@ -41,12 +41,26 @@ export type MutationToggleCompletedArgs = {
   id: Scalars['ID'];
 };
 
+export type Node = {
+  id: Scalars['ID'];
+};
+
 export type Query = {
   __typename?: 'Query';
   allTodos?: Maybe<Array<Todo>>;
+  node?: Maybe<Node>;
+  nodes: Array<Maybe<Node>>;
 };
 
-export type Todo = {
+export type QueryNodeArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryNodesArgs = {
+  ids: Array<Scalars['ID']>;
+};
+
+export type Todo = Node & {
   __typename?: 'Todo';
   completed: Scalars['Boolean'];
   id: Scalars['ID'];
@@ -140,7 +154,6 @@ export function useAddTodoMutation(
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions };
-
   return Apollo.useMutation<AddTodoMutation, AddTodoMutationVariables>(
     AddTodoDocument,
     options,
@@ -186,7 +199,6 @@ export function useSetFilterMutation(
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions };
-
   return Apollo.useMutation<SetFilterMutation, SetFilterMutationVariables>(
     SetFilterDocument,
     options,
@@ -238,7 +250,6 @@ export function useToggleCompletedMutation(
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions };
-
   return Apollo.useMutation<
     ToggleCompletedMutation,
     ToggleCompletedMutationVariables
@@ -282,7 +293,6 @@ export function useAllTodosQuery(
   baseOptions?: Apollo.QueryHookOptions<AllTodosQuery, AllTodosQueryVariables>,
 ) {
   const options = { ...defaultOptions, ...baseOptions };
-
   return Apollo.useQuery<AllTodosQuery, AllTodosQueryVariables>(
     AllTodosDocument,
     options,
@@ -295,7 +305,6 @@ export function useAllTodosLazyQuery(
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions };
-
   return Apollo.useLazyQuery<AllTodosQuery, AllTodosQueryVariables>(
     AllTodosDocument,
     options,
