@@ -23,5 +23,5 @@ type Query {
 type Mutation {
   addTodo(text: String!): Todo!
   setFilter(filter: Filter): Filter!
-  toggleCompleted(id: Int!): Todo!
+  toggleCompleted(id: ID!): Todo!
 }

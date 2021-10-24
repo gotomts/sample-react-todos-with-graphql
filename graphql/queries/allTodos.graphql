@@ -1,5 +1,5 @@
-query allTodos($filter: Filter!) {
-  allTodos(filter: $filter) {
+query allTodos {
+  allTodos {
     id
     text
     completed

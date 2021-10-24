@@ -266,7 +266,7 @@ type Query {
 type Mutation {
   addTodo(text: String!): Todo!
   setFilter(filter: Filter): Filter!
-  toggleCompleted(id: Int!): Todo!
+  toggleCompleted(id: ID!): Todo!
 }
 `, BuiltIn: false},
 }
@@ -312,7 +312,7 @@ func (ec *executionContext) field_Mutation_toggleCompleted_args(ctx context.Cont
 	var arg0 int
 	if tmp, ok := rawArgs["id"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("id"))
-		arg0, err = ec.unmarshalNInt2int(ctx, tmp)
+		arg0, err = ec.unmarshalNID2int(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -2431,21 +2431,6 @@ func (ec *executionContext) marshalNID2ᚕintᚄ(ctx context.Context, sel ast.Se
 	}
 
 	return ret
-}
-
-func (ec *executionContext) unmarshalNInt2int(ctx context.Context, v interface{}) (int, error) {
-	res, err := graphql.UnmarshalInt(v)
-	return res, graphql.ErrorOnPath(ctx, err)
-}
-
-func (ec *executionContext) marshalNInt2int(ctx context.Context, sel ast.SelectionSet, v int) graphql.Marshaler {
-	res := graphql.MarshalInt(v)
-	if res == graphql.Null {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-	}
-	return res
 }
 
 func (ec *executionContext) marshalNNode2ᚕtodoᚋentᚐNoder(ctx context.Context, sel ast.SelectionSet, v []ent.Noder) graphql.Marshaler {
